@@ -8,7 +8,6 @@ from wincap import WindowCapture
 # Doing this because I'll be putting the files from each video in their own folder on GitHub
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-
 # initialize the WindowCapture class
 wincap = WindowCapture('BlueStacks')
 
