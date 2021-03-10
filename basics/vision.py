@@ -43,6 +43,6 @@ class Vision:
                         thickness=2,
                         lineType=cv.LINE_4)
             
-            cv.imshow('Matches', haystack_img)
+        cv.imshow('Matches', haystack_img)
             
         return (self.needle_w/2,self.needle_h/2)
