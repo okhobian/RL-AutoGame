@@ -21,7 +21,9 @@ while(True):
     screenshot = wincap.get_screenshot()
 
     # display the processed image
-    points = vision_start_game.find(screenshot, 0.5)
+    points = vision_start_game.find(screenshot, 0.95)
+
+    cv.imshow('Matches', points[2])
 
     # debug the loop rate
     print('FPS {}'.format(1 / (time() - loop_time)))
