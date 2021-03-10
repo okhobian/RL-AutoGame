@@ -18,9 +18,12 @@ class Vision:
     }
     
     method = None
+    click_flag = False
+    click_x = None
+    click_y = None
 
     # constructor
-    def __init__(self, needle_img_path, method=cv.TM_CCOEFF_NORMED):
+    def __init__(self, method=cv.TM_CCOEFF_NORMED):
         # load the images
         for path in self.needle_img_paths:
             # self.needle_imgs[path] = cv.imread(self.needle_img_paths[path], cv.IMREAD_UNCHANGED)
@@ -31,7 +34,9 @@ class Vision:
         self.method = method
 
     def find(self, haystack_img, threshold=0.5):
-                
+        
+        self.click_flag = False
+        
         # convert haystack to grayscale
         haystack_img = cv.cvtColor(haystack_img, cv.COLOR_BGR2GRAY)
         
@@ -49,15 +54,20 @@ class Vision:
 
         if max_val >= threshold:
             # detection box size
-            top_left = max_loc
-            bottom_right = (top_left[0] + needle_w, top_left[1] + needle_h)
+            bottom_left = max_loc
+            top_right = (bottom_left[0] + needle_w, bottom_left[1] + needle_h)
+            
+            # print(bottom_left, top_right)
             
             # draw detection box
-            cv.rectangle(haystack_img, top_left, bottom_right, 
+            cv.rectangle(haystack_img, bottom_left, top_right, 
                         color=(255,255,255), 
                         thickness=2,
                         lineType=cv.LINE_4)
             
-        # cv.imshow('Matches', haystack_img)
+            self.click_flag = True
+            self.click_x = bottom_left[0] + needle_w / 2
+            self.click_y = bottom_left[1] + needle_h / 2
+                        
             
-        return (needle_w/2, needle_h/2, haystack_img)
+        return (self.click_x, self.click_y, haystack_img, self.click_flag, img_type)
