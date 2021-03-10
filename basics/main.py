@@ -29,7 +29,7 @@ def bot_action(result):
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 # initialize the WindowCapture class
-wincap = WindowCapture('BlueStacks')
+wincap = WindowCapture("BlueStacks")
 
 # initialize the Vision class
 vision_start_game = Vision()
@@ -44,7 +44,7 @@ while(True):
     result = vision_start_game.find(screenshot, 0.95)
 
     # show detection images
-    cv.imshow('Matches', result[2])
+    cv.imshow("Matches", result[2])
             
     # click if necessary
     if not is_bot_running and result[3]:
@@ -62,4 +62,4 @@ while(True):
         cv.destroyAllWindows()
         break
 
-print('Finish.')
+print("Finish.")
